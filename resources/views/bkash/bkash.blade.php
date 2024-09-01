@@ -11,7 +11,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
-<form action="" method="get">
+<form action="{{route('bkash-create-payment')}}" method="get">
      <button type="submit">BKASH</button>
 </form>
 

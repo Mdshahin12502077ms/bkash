@@ -11,16 +11,36 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <form action="{{ route('bkash-create-payment') }}" method="get">
-        <input type="hidden" name="amount" value="{{ $amount }}">
-        <button type="submit">BKASH</button>
+    <form action="{{ url('amount/insert') }}" method="post">
+        @csrf
+        <input  name="amount" placeholder="Enter Amount">
+        <button type="submit">submit</button>
     </form>
 
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">amount</th>
+            <th scope="col">action</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($getamount as $getamount)
+            <tr>
+                <th scope="row">1</th>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$getamount->amount}}</td>
+                <td>
+                    <a href="{{url('bkash/view',$getamount->id)}}">Pay</a>
+                </td>
+              </tr>
+            @endforeach
 
-    <form action="{{ route('bkash-refund') }}" method="get">
-        <input type="hidden" name="amount" value="{{ $amount }}">
-        <button type="submit">Refund</button>
-    </form>
+
+        </tbody>
+      </table>
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 

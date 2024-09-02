@@ -22,8 +22,11 @@ Route::get('image/view',[CropImageController::class,'imageView']);
 Route::post('image/insert',[CropImageController::class,'imageInsert']);
 Route::post('/save/crop', [CropImageController::class, 'saveCroppedImage']);
 
+//amount add
+Route::get('amount/view',[CropImageController::class,'amountView']);
+Route::post('amount/insert',[CropImageController::class,'amountInsert']);
 // BKASH
-Route::get('bkash/view',[CropImageController::class,'bkashView']);
+Route::get('bkash/view/{id}',[CropImageController::class,'bkashView']);
 Route::group(['middleware' => ['web']], function () {
     // Payment Routes for bKash
     Route::get('/bkash/payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'index']);
@@ -36,7 +39,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/bkash/search/{trxID}', [App\Http\Controllers\BkashTokenizePaymentController::class,'searchTnx'])->name('bkash-serach');
 
 
-    
+
     //refund payment routes
     Route::get('/bkash/refund', [App\Http\Controllers\BkashTokenizePaymentController::class,'refund'])->name('bkash-refund');
     Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class,'refundStatus'])->name('bkash-refund-status');

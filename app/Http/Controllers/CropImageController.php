@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CropImage;
+use App\Models\amount;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
@@ -53,8 +54,28 @@ class CropImageController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Image saved successfully']);
     }
-            public function bkashView(){
-            return view('bkash.bkash');
+            public function bkashView($id){
+                $amount=amount::find($id);
+                if($amount->amount==0){
+                    return redirect()->route('bkash.bkash',[$id])->with('error-alert', 'Amount is zero');
+                }
+                $amount=$amount->amount;
+            return view('bkash.bkash',compact('amount'));
+            }
+
+            public function amountView(Request $request){
+
+                $getamount=amount::all();
+                return view('Amount.Amount_add', compact('getamount'));
+            }
+
+            public function amountInsert(Request $request){
+                $amount=new amount();
+                $amount->amount=$request->amount;
+                $amount->save();
+                return redirect()->back();
+
+
             }
 
 }
